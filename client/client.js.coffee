@@ -1,28 +1,12 @@
 TL = TLog.getLogger TLog.LOGLEVEL_INFO, true
 
 log = (ob, level = 'info') ->
-  TL[level] ob, 'Setup'
-
-Meteor.subscribe 'userData'
-
-UserData = new Meteor.Collection 'userData'
-
-log 'Is Ready'
-
-Meteor.autorun ->
-  if Meteor.userId()
-    user = Meteor.user
-    log user.emails[0]
-
-Accounts.config
-  sendVerificationEmail : true
-  forbidClientAccountCreation : false
+  TL[level] ob, 'Client'
 
 Accounts.ui.config
-  requestPermissions : null
-  requestOfflineToken : null
   passwordSignupFields : 'USERNAME_AND_EMAIL'
 
+log 'Is Ready'
 
 Template.greeting.created = ->
   log 'Created Greeting'
@@ -35,6 +19,14 @@ Template.greeting.show = ->
     return "Hello #{Meteor.user().username}"
   else 
     return "Hello Stranger"
+
+
+####################
+# Debug
+####################
+
+# Meteor.subscribe 'userData'
+# UserData = new Meteor.Collection 'userData'
 
 # Accounts.createUser = _.wrap Accounts.createUser, (createUser) ->
 
