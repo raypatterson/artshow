@@ -13,9 +13,9 @@ Accounts.emailTemplates =
   from : "Art Show <ray.patterson@akqa.com>"
   verifyEmail :
     subject : (user) -> 
-      "[ Art Show ] : Please verify your email"
+      "[ Art Show ] : Please verify your account"
     text : (user, url) ->
-      "Hi #{user.username}, \n\nJust follow the link to verify your account \n\n#{url} \n\n-Art Show"
+      "Hi #{user.username}, \n\nJust follow the link to verify your account and begin updating your profile\n\n#{url} \n\nThanks, \n\n-Art Show"
 
 
 ####################
