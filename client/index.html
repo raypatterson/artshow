@@ -4,21 +4,29 @@
 
 <body>
 
-  <header>
-    <div class="row offset1">
-      <div>
-        <div><h1>Do You ❤ Art?</h1></div>
-        <div>{{loginButtons align="left"}}</div>
-      </div>
-    </div>
+  <header class="offset1 span10">
+    <h1>Do You <span class="red">❤</span> Art?</h1>
+    <div class="offset1 span10">{{loginButtons align="left"}}</div>
   </header>
+
+  <section class="offset2 span8">
+    {{> greeting}}
+    {{> status}}
+  </section>
+
+  <footer>
+  </footer>
 
   {{>logs_bootstrap}}
   
 </body>
 
 <template name="greeting">
-  {{show}}.
+  <h2>{{{show}}}</h2>
+</template>
+
+<template name="status">
+  <h4>{{{show}}}</h4>
 </template>
 
 <!--

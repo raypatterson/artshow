@@ -8,17 +8,27 @@ Accounts.ui.config
 
 log 'Is Ready'
 
-Template.greeting.created = ->
-  log 'Created Greeting'
-
-Template.greeting.rendered = ->
-  # log 'rendered hello'
-
 Template.greeting.show = ->
   if Meteor.userId()
     return "Hello #{Meteor.user().username}"
   else 
-    return "Hello Stranger"
+    return "<span class=\"emphasis\">⬆</span> Hello Stranger"
+
+Template.status.show = ->
+  if Meteor.userId()
+
+    emails = Meteor.user().emails
+    verified = false
+    _.each emails, (email, index) ->
+      if index is 0 then verified is email.verified
+
+    if Meteor.user()
+      if verified
+        return "Let's give your profile some love."
+      else
+        return "Please check your email to verify your account."
+  else 
+    return "Sign in above, </br>and feel the love."
 
 
 ####################
