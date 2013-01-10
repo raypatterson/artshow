@@ -20,7 +20,10 @@ Template.status.show = ->
     emails = Meteor.user().emails
     verified = false
     _.each emails, (email, index) ->
-      if index is 0 then verified is email.verified
+      if index is 0 then verified = email.verified
+
+    console.log emails 
+    console.log verified 
 
     if Meteor.user()
       if verified
