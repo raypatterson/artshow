@@ -1,6 +1,20 @@
+@font-awesome: FontAwesome, "Helvetica Neue", Arial, Sans-Serif;
+@background-image: #333344 url('/image/concrete_wall.jpg');
+@font-color: #e8faff;
+@red-color: #ff5c65;
+
 body {
-  background-color: #deeef6;
+  background: @background-image;
   padding-top: 20px;
+  font-family: @font-awesome;
+}
+
+a {
+  color: #97d1ff;
+}
+
+a:hover {
+  color: #51e1ff;
 }
 
 section {
@@ -8,7 +22,7 @@ section {
 }
 
 .red {
- color: red;
+ color: @red-color;
 }
 
 .emphasis {
@@ -20,6 +34,10 @@ h1 {
 }
 
 h1, h2, h3, h4, h5, h6, p {
-  color: #1587fb;
+  color: @font-color
+}
+
+#login-buttons {
+  font-family: @font-awesome;
 }
   

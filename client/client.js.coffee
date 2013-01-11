@@ -12,7 +12,7 @@ Template.greeting.show = ->
   if Meteor.userId()
     return "Hello #{Meteor.user().username}"
   else 
-    return "<span class=\"emphasis\">⬆</span> Hello Stranger"
+    return "<span class=\"emphasis\">&#xf062;</span> Hello Stranger"
 
 Template.status.show = ->
   if Meteor.userId()
