@@ -24,7 +24,7 @@ userStates =
 
 getUserState = ->
 
-  return userStates.VERIFIED
+  # return userStates.VERIFIED
 
   if Meteor.userId()
     emails = Meteor.user().emails
