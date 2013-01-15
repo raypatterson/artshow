@@ -8,30 +8,37 @@ Accounts.ui.config
 
 log 'Is Ready'
 
-Template.greeting.show = ->
-  if Meteor.userId()
-    return "Hello #{Meteor.user().username}"
-  else 
-    return "<span class=\"emphasis\">&#xf062;</span> Hello Stranger"
+userStates =
+  UNKNOWN : 'unknown'
+  UNVERIFIED : 'unverified'
+  VERIFIED : 'verified'
 
-Template.status.show = ->
+getUserState = ->
+  return userStates.VERIFIED
   if Meteor.userId()
-
     emails = Meteor.user().emails
     verified = false
     _.each emails, (email, index) ->
       if index is 0 then verified = email.verified
 
-    # console.log emails 
-    # console.log verified 
-
     if Meteor.user()
       if verified
-        return "Let's give your profile some love."
+        return userStates.VERIFIED
       else
-        return "Please check your email to verify your account."
-  else 
-    return "Sign in above, </br>and feel the love."
+        return userStates.UNVERIFIED
+  else
+    return userStates.UNKNOWN
+
+getUserStateFlag = ->
+  ob = {}
+  ob[getUserState()] = true
+  ob
+
+Template.greeting.state = -> getUserStateFlag()
+
+Template.status.state = -> getUserStateFlag()
+
+Template.greeting.username = -> Meteor.user().username
 
 getRequirement = ( el ) ->
   $el = $ el
@@ -57,6 +64,8 @@ updateUserProfile = ->
 
   console.log 'user', Meteor.user()
 
+Template.form.state = -> getUserStateFlag()
+
 Template.project.user = -> 
   console.log 'Project User'
   Meteor.user()
@@ -72,7 +81,7 @@ Template.project.requirements = ->
     placeholder : 'Art production, programming, emotional...'
   ]
 
-  requirements = if Meteor.user().profile then Meteor.user().profile.project.requirements else []
+  requirements = if Meteor.user() and Meteor.user().profile then Meteor.user().profile.project.requirements else undefined
 
   req = []
 
@@ -81,7 +90,11 @@ Template.project.requirements = ->
     _.each requirements, ( val, key ) ->
       r = _.extend requirements[key], defaults[key]
       req[key] = r
+  else
+    req = defaults
 
+  console.log 'defaults', defaults
+  console.log 'requirements', requirements
   console.log 'req', req
   
   req

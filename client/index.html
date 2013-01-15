@@ -15,7 +15,7 @@
   </section>
 
   <section class="row offset0 span8">
-    {{> project}}
+    {{> form}}
   </section>
 
   <footer>
@@ -24,11 +24,27 @@
 </body>
 
 <template name="greeting">
-  <h2>{{{show}}}</h2>
+  <h2>
+    {{#if state.unknown}}
+      <span class=\"emphasis\">&#xf062;</span> Hello Stranger
+    {{else}}
+      Hello {{username}}
+    {{/if}}
+  </h2>
 </template>
 
 <template name="status">
-  <h4>{{{show}}}</h4>
+  <h4>
+  {{#if state.unknown}}Sign in above, </br>and feel the love.{{/if}}
+  {{#if state.unverified}}Please check your email to verify your account.{{/if}}
+  {{#if state.verified}}Let's give your project profile some love.{{/if}}
+  </h4>
+</template>
+
+<template name="form">
+  {{#if state.verified}}
+    {{> project}}
+  {{/if}}
 </template>
 
 <template name="project">
