@@ -4,20 +4,22 @@
 
 <body>
 
-  <header class="offset1 span10">
+  <header class="row offset1 span10">
     <h1>Do You <span class="red">&#xf004;</span> Art?</h1>
     <div class="offset1 span10">{{loginButtons align="left"}}</div>
   </header>
 
-  <section class="offset2 span8">
+  <section class="row offset2 span8">
     {{> greeting}}
     {{> status}}
   </section>
 
+  <section class="row offset0 span8">
+    {{> project}}
+  </section>
+
   <footer>
   </footer>
-
-  {{> logs_bootstrap}}
   
 </body>
 
@@ -29,58 +31,41 @@
   <h4>{{{show}}}</h4>
 </template>
 
-<!--
-<template name="collections">
-  <div class="answers">
-    {{#each answers}}
-      Answer: {{.}}
-      <br />
-    {{/each}}
-  </div>
-</template>
-
-<template name="buttons">
-  <button id="sign_up" type="button" class="btn">Sign In</button>
-  <button id="sign_in" type="button" class="btn">Sign Up</button>
-</template>
-
-<template name="sign_up">
+<template name="project">
 
   <form class="form-horizontal">
+
     <div class="control-group">
-      <label class="control-label" for="inputEmail">Email</label>
+      <label class="control-label" for="projectName">Name</label>
       <div class="controls">
-        <input type="text" id="inputEmail" placeholder="Email">
+        <input type="text" id="projectName" placeholder="Black Velvet Elvis" value="{{user.profile.project.name}}">
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label" for="inputPassword">Password</label>
+      <label class="control-label" for="projectDescription">Description</label>
       <div class="controls">
-        <input type="password" id="inputPassword" placeholder="Password">
+        <textarea rows="3" id="projectDescription" placeholder="Upon a pitch black evening, The King returns to Earth upon a UFO made of solid gold...">{{user.profile.project.description}}</textarea>
       </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="projectRequirements">Requirements</label>
+
+      {{#each requirements}}
+        <div class="controls">
+          <label class="checkbox">
+            <input type="checkbox" {{#if active}}checked{{/if}}>{{question}}
+          </label>
+          <textarea rows="3" placeholder="{{placeholder}}" {{#unless active}}disabled{{/unless}}>{{text}}</textarea>
+        </div>
+      {{/each}}
+      
     </div>
     <div class="control-group">
       <div class="controls">
-        <label class="checkbox">
-          <input type="checkbox"> Remember me
-        </label>
-        <button type="submit" class="btn">Sign Up</button>
+        <button id="save-project" type="submit" class="btn btn-large btn-success icon-file"> Save</button>
       </div>
     </div>
   </form>
-  
-</template>
 
-<template name="sign_in">
-
-  <form class="form-inline">
-    <input type="text" class="input-small" placeholder="Email">
-    <input type="password" class="input-small" placeholder="Password">
-    <label class="checkbox">
-      <input type="checkbox"> Remember me
-    </label>
-    <button type="submit" class="btn">Sign In</button>
-  </form>
-  
 </template>
--->

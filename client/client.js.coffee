@@ -22,8 +22,8 @@ Template.status.show = ->
     _.each emails, (email, index) ->
       if index is 0 then verified = email.verified
 
-    console.log emails 
-    console.log verified 
+    # console.log emails 
+    # console.log verified 
 
     if Meteor.user()
       if verified
@@ -32,6 +32,73 @@ Template.status.show = ->
         return "Please check your email to verify your account."
   else 
     return "Sign in above, </br>and feel the love."
+
+getRequirement = ( el ) ->
+  $el = $ el
+  ob = 
+    active : $el.find('input')[0].checked
+    text : $el.closest('.controls').find('textarea').val()
+  ob
+
+getRequirements = ->
+  arr = []
+  $('.checkbox').each ( i, el ) ->
+    arr.push( getRequirement el )
+  arr
+
+updateUserProfile = ->
+  profile =
+    project :
+      name : $('#projectName').val()
+      description : $('#projectDescription').val()
+      requirements : getRequirements()
+
+  Meteor.users.update( Meteor.userId(), { $set : { 'profile' : profile } } )
+
+  console.log 'user', Meteor.user()
+
+Template.project.user = -> 
+  console.log 'Project User'
+  Meteor.user()
+
+Template.project.requirements = -> 
+  console.log 'Project Requirements'
+
+  defaults = [
+    question : 'Do you have any requirments to display?'
+    placeholder : 'Large space, web hosting, fire extinguishers...'
+  ,
+    question : 'Do you need any additional support?'
+    placeholder : 'Art production, programming, emotional...'
+  ]
+
+  requirements = if Meteor.user().profile then Meteor.user().profile.project.requirements else []
+
+  req = []
+
+  r = undefined
+  if requirements
+    _.each requirements, ( val, key ) ->
+      r = _.extend requirements[key], defaults[key]
+      req[key] = r
+
+  console.log 'req', req
+  
+  req
+  
+Template.project.rendered = ->
+  console.log 'Project Rendered'
+
+Template.project.events =
+  'click #save-project' : ( evt, template ) ->
+    console.log 'Save'
+    updateUserProfile()
+
+  'click .checkbox' : ( evt, template ) ->
+    console.log 'Check'
+    updateUserProfile()
+      
+
 
 
 ####################
