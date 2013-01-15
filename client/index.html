@@ -35,7 +35,7 @@
 
 <template name="status">
   <h4>
-  {{#if state.unknown}}Sign in above, </br>and feel the love.{{/if}}
+  {{#if state.unknown}}Sign in above, <br>and feel the love.{{/if}}
   {{#if state.unverified}}Please check your email to verify your account.{{/if}}
   {{#if state.verified}}Let's give your project profile some love.{{/if}}
   </h4>
@@ -52,15 +52,15 @@
   <form class="form-horizontal">
 
     <div class="control-group">
-      <label class="control-label" for="projectName">Name</label>
+      <label class="control-label" for="project-name">Name</label>
       <div class="controls">
-        <input type="text" id="projectName" placeholder="Black Velvet Elvis" value="{{user.profile.project.name}}">
+        <input type="text" id="project-name" placeholder="Black Velvet Elvis" value="{{user.profile.project.name}}">
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label" for="projectDescription">Description</label>
+      <label class="control-label" for="project-description">Description</label>
       <div class="controls">
-        <textarea rows="3" id="projectDescription" placeholder="Upon a pitch black evening, The King returns to Earth upon a UFO made of solid gold...">{{user.profile.project.description}}</textarea>
+        <textarea rows="3" id="project-description" placeholder="On a pitch black night, The King returns to Earth in a UFO made of hamburger...">{{user.profile.project.description}}</textarea>
       </div>
     </div>
 
@@ -69,8 +69,8 @@
 
       {{#each requirements}}
         <div class="controls">
-          <label class="checkbox">
-            <input type="checkbox" {{#if active}}checked{{/if}}>{{question}}
+          <label class="checkbox-label">
+            <input class="checkbox" type="checkbox" {{#if active}}checked{{/if}}><span>{{question}}</span>
           </label>
           <textarea rows="3" placeholder="{{placeholder}}" {{#unless active}}disabled{{/unless}}>{{text}}</textarea>
         </div>
@@ -79,7 +79,7 @@
     </div>
     <div class="control-group">
       <div class="controls">
-        <button id="save-project" type="submit" class="btn btn-large btn-success icon-file"> Save</button>
+        <button id="save-project" type="submit" class="btn btn-large btn-success icon-file" {{save.disabled}}> Save</button>
       </div>
     </div>
   </form>

@@ -8,13 +8,24 @@ Accounts.ui.config
 
 log 'Is Ready'
 
+Meteor.startup ->
+  console.log 'Startup'
+  addInputEvents 'input'
+  addInputEvents 'textarea'
+
+  env = Meteor.call 'getEnv'
+
+  console.log 'env', env
+
 userStates =
   UNKNOWN : 'unknown'
   UNVERIFIED : 'unverified'
   VERIFIED : 'verified'
 
 getUserState = ->
+
   return userStates.VERIFIED
+
   if Meteor.userId()
     emails = Meteor.user().emails
     verified = false
@@ -43,7 +54,8 @@ Template.greeting.username = -> Meteor.user().username
 getRequirement = ( el ) ->
   $el = $ el
   ob = 
-    active : $el.find('input')[0].checked
+    active : el.checked
+    # active : $el.find('input')[0].checked
     text : $el.closest('.controls').find('textarea').val()
   ob
 
@@ -53,16 +65,35 @@ getRequirements = ->
     arr.push( getRequirement el )
   arr
 
-updateUserProfile = ->
+saveUserProfile = ->
+  console.log 'Save User Profile'
+
+  Session.set 'saved', true
+
+  $btn = $ '#save-project'
+  $btn.delay(100)
+
+  .animate( 
+    opacity : .95
+  , 250 )
+
+  .delay(1000)
+
+  .animate( 
+    opacity : .65
+  , 1000 )
+
+
   profile =
     project :
-      name : $('#projectName').val()
-      description : $('#projectDescription').val()
+      name : $('#project-name').val()
+      description : $('#project-description').val()
       requirements : getRequirements()
 
   Meteor.users.update( Meteor.userId(), { $set : { 'profile' : profile } } )
 
   console.log 'user', Meteor.user()
+
 
 Template.form.state = -> getUserStateFlag()
 
@@ -78,7 +109,7 @@ Template.project.requirements = ->
     placeholder : 'Large space, web hosting, fire extinguishers...'
   ,
     question : 'Do you need any additional support?'
-    placeholder : 'Art production, programming, emotional...'
+    placeholder : 'Art production, programming, Keanu Reeves...'
   ]
 
   requirements = if Meteor.user() and Meteor.user().profile then Meteor.user().profile.project.requirements else undefined
@@ -92,24 +123,48 @@ Template.project.requirements = ->
       req[key] = r
   else
     req = defaults
-
-  console.log 'defaults', defaults
-  console.log 'requirements', requirements
-  console.log 'req', req
   
   req
-  
+
+Session.set 'saved', true
+
+addInputEvents = ( selector ) ->
+  console.log 'Add Input Events'
+  $( selector ).on 'propertychange keyup input paste', ( evt ) =>
+    console.log 'Project profile change'
+    Session.set 'saved', false
+
+Template.project.save = ->
+  if Session.equals 'saved', true
+    console.log 'Disable save button'
+    return disabled : 'disabled'
+  else
+    console.log 'Enable save button'
+    return disabled : ''
+
 Template.project.rendered = ->
   console.log 'Project Rendered'
 
 Template.project.events =
-  'click #save-project' : ( evt, template ) ->
-    console.log 'Save'
-    updateUserProfile()
 
   'click .checkbox' : ( evt, template ) ->
-    console.log 'Check'
-    updateUserProfile()
+    console.log 'Check', evt.currentTarget
+    # evt.stopPropagation()
+    # evt.stopImmediatePropagation()
+    evt.preventDefault()
+    saveUserProfile()
+
+  'click .checkbox' : ( evt, template ) ->
+    console.log 'Check', evt.currentTarget
+    # evt.stopPropagation()
+    # evt.stopImmediatePropagation()
+    evt.preventDefault()
+    saveUserProfile()
+
+  'click #save-project' : ( evt, template ) ->
+    console.log 'Save'
+    saveUserProfile()
+
       
 
 

@@ -18,6 +18,13 @@ Accounts.emailTemplates =
       "Hi #{user.username}, \n\nJust follow the link to verify your account and begin updating your profile\n\n#{url} \n\nThanks, \n\n-Art Show"
 
 
+Meteor.startup ->
+  console.log "Meteor.settings", Meteor.settings
+
+Meteor.methods 
+  getEnv : ->
+    'localhost' # Meteor.settings.settings.env
+
 ####################
 # Debug
 ####################
