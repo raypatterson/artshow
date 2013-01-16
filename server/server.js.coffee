@@ -3,7 +3,12 @@ TL = TLog.getLogger TLog.LOGLEVEL_INFO, true
 log = (ob, level = 'info') ->
   TL[level] ob, 'Server'
 
-log 'Is Ready'
+log 'Ready'
+
+# log "Settings"
+# log Meteor.settings
+# settings = Meteor.settings
+# env = settings.env
 
 Accounts.config
   sendVerificationEmail : true
@@ -17,13 +22,12 @@ Accounts.emailTemplates =
     text : (user, url) ->
       "Hi #{user.username}, \n\nJust follow the link to verify your account and begin updating your profile\n\n#{url} \n\nThanks, \n\n-Art Show"
 
+# Meteor.methods
+#   isLocal : -> env is envs.LOCAL
 
 Meteor.startup ->
-  console.log "Meteor.settings", Meteor.settings
-
-Meteor.methods 
-  getEnv : ->
-    'localhost' # Meteor.settings.settings.env
+  log 'Startup'
+    
 
 ####################
 # Debug

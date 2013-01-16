@@ -1,42 +1,64 @@
 TL = TLog.getLogger TLog.LOGLEVEL_INFO, true
 
 log = (ob, level = 'info') ->
-  TL[level] ob, 'Client'
+  if ( typeof ob ) is 'string'
+    # TL[level] ob, 'Client'
+  else
+    # console.log '-----> Object'
+    # console.log ob
+    # console.log '<----- Object'
+    
+log 'Ready'
 
 Accounts.ui.config
   passwordSignupFields : 'USERNAME_AND_EMAIL'
 
-log 'Is Ready'
+# Session variables
+Session.set 'saved', true
 
-Meteor.startup ->
-  console.log 'Startup'
-  addInputEvents 'input'
-  addInputEvents 'textarea'
-
-  env = Meteor.call 'getEnv'
-
-  console.log 'env', env
-
+# Enums
 userStates =
   UNKNOWN : 'unknown'
   UNVERIFIED : 'unverified'
   VERIFIED : 'verified'
 
-getUserState = ->
+# Attempt to set Env var, doesn't get set until after startup is complete...
+# isLocal = false
+# Meteor.call 'isLocal', ( error, result ) -> isLocal = result
 
-  # return userStates.VERIFIED
+# Debug flag
+# debug = if ( window.location.search.indexOf 'debug' ) isnt -1 then true else false
+
+Meteor.startup ->
+  log 'Startup'
+  addInputEvents 'input'
+  addInputEvents 'textarea'
+
+
+getUserState = ->
+  # log 'Get User State'
+
+  return userStates.VERIFIED 
 
   if Meteor.userId()
+
     emails = Meteor.user().emails
     verified = false
+
     _.each emails, (email, index) ->
       if index is 0 then verified = email.verified
 
     if Meteor.user()
+
+      # Debug for local development
+      # if debug
+      #   return userStates.VERIFIED 
+
       if verified
         return userStates.VERIFIED
       else
         return userStates.UNVERIFIED
+
   else
     return userStates.UNKNOWN
 
@@ -52,21 +74,33 @@ Template.status.state = -> getUserStateFlag()
 Template.greeting.username = -> Meteor.user().username
 
 getRequirement = ( el ) ->
+  # console.log 'Get Requirement'
   $el = $ el
+  $input = $el.find 'input'
+  $textarea = $el.find 'textarea'
+
+  active = $input[0].checked
+  text = $textarea.val()
+
+  # console.log $input
+  # console.log active
+  # console.log $textarea
+  # console.log text
+
   ob = 
-    active : el.checked
-    # active : $el.find('input')[0].checked
-    text : $el.closest('.controls').find('textarea').val()
+    active : active
+    text : text
   ob
 
 getRequirements = ->
+  # console.log 'Get Requirements'
   arr = []
-  $('.checkbox').each ( i, el ) ->
+  $('.checkbox-container').each ( i, el ) ->
     arr.push( getRequirement el )
   arr
 
 saveUserProfile = ->
-  console.log 'Save User Profile'
+  # log 'Save User Profile'
 
   Session.set 'saved', true
 
@@ -77,12 +111,11 @@ saveUserProfile = ->
     opacity : .95
   , 250 )
 
-  .delay(1000)
+  .delay(500)
 
   .animate( 
     opacity : .65
-  , 1000 )
-
+  , 500 )
 
   profile =
     project :
@@ -92,17 +125,18 @@ saveUserProfile = ->
 
   Meteor.users.update( Meteor.userId(), { $set : { 'profile' : profile } } )
 
-  console.log 'user', Meteor.user()
+  log 'Saved User Profile'
+  log Meteor.user()
 
 
 Template.form.state = -> getUserStateFlag()
 
 Template.project.user = -> 
-  console.log 'Project User'
+  log 'Project User'
   Meteor.user()
 
 Template.project.requirements = -> 
-  console.log 'Project Requirements'
+  log 'Project Requirements'
 
   defaults = [
     question : 'Do you have any requirments to display?'
@@ -114,55 +148,45 @@ Template.project.requirements = ->
 
   requirements = if Meteor.user() and Meteor.user().profile then Meteor.user().profile.project.requirements else undefined
 
-  req = []
+  req = defaults
 
-  r = undefined
+  r = undefined and requirements.length isnt 0
   if requirements
     _.each requirements, ( val, key ) ->
       r = _.extend requirements[key], defaults[key]
       req[key] = r
-  else
-    req = defaults
+
+  console.log 'req', req
   
   req
 
-Session.set 'saved', true
-
 addInputEvents = ( selector ) ->
-  console.log 'Add Input Events'
+  log 'Add Input Events'
   $( selector ).on 'propertychange keyup input paste', ( evt ) =>
-    console.log 'Project profile change'
+    log 'Project profile change'
     Session.set 'saved', false
 
 Template.project.save = ->
   if Session.equals 'saved', true
-    console.log 'Disable save button'
+    log 'Disable save button'
     return disabled : 'disabled'
   else
-    console.log 'Enable save button'
+    log 'Enable save button'
     return disabled : ''
 
 Template.project.rendered = ->
-  console.log 'Project Rendered'
+  log 'Project Rendered'
 
 Template.project.events =
 
   'click .checkbox' : ( evt, template ) ->
-    console.log 'Check', evt.currentTarget
-    # evt.stopPropagation()
-    # evt.stopImmediatePropagation()
-    evt.preventDefault()
-    saveUserProfile()
-
-  'click .checkbox' : ( evt, template ) ->
-    console.log 'Check', evt.currentTarget
-    # evt.stopPropagation()
-    # evt.stopImmediatePropagation()
+    console.log 'Check'
     evt.preventDefault()
     saveUserProfile()
 
   'click #save-project' : ( evt, template ) ->
-    console.log 'Save'
+    log 'Save'
+    evt.preventDefault()
     saveUserProfile()
 
       
@@ -186,7 +210,7 @@ Template.project.events =
 #   origCallback = args[1]
 
 #   newCallback = (error) ->
-#     console.log 'Execute Create User Callback'
+#     log 'Execute Create User Callback'
 #     if error
 #       origCallback.call this, error
 #     else

@@ -65,10 +65,10 @@
     </div>
 
     <div class="control-group">
-      <label class="control-label" for="projectRequirements">Requirements</label>
+      <label class="control-label" for="project-requirements">Requirements</label>
 
       {{#each requirements}}
-        <div class="controls">
+        <div class="controls checkbox-container">
           <label class="checkbox-label">
             <input class="checkbox" type="checkbox" {{#if active}}checked{{/if}}><span>{{question}}</span>
           </label>

@@ -1,5 +1,3 @@
 {
-  "settings": {
-    "env": "local"
-  }
+  "env": "local"
 }

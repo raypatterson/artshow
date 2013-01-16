@@ -1,6 +1,7 @@
-TL = TLog.getLogger TLog.LOGLEVEL_INFO, true
+# log 'Is Ready'
 
-log = (ob, level = 'info') ->
-  TL[level] ob, 'Shared'
-
-log 'Is Ready'
+# Enums
+# envs =
+#   LOCAL : 'local'
+#   STAGING : 'staging'
+#   PRODUCTION : 'production'
