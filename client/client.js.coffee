@@ -29,20 +29,17 @@ debug = if ( window.location.search.indexOf 'debug' ) isnt -1 then true else fal
 Meteor.startup ->
   log 'Startup'
 
-  addInputEvents 'input'
-  addInputEvents 'textarea'
+  # Main Navigation
+  $mainNav = $ '#main-nav'
+  # Activate 1st tab
+  $mainNav.find('a:first').tab 'show'
+  # Event Handlers
+  $mainNav.find('.nav-item a').on 'click', ( evt ) ->
+    $(evt.currentTarget).tab 'show'
 
-addInputEvents = ( selector ) ->
-  log 'Add Input Events'
-
-  # $( selector ).on 'propertychange keyup input paste', ( evt ) =>
-  #   log 'Project profile change'
-  #   Session.set 'saved', false
 
 getUserState = ->
   # log 'Get User State'
-
-  # return userStates.VERIFIED 
 
   if Meteor.userId()
 
@@ -71,12 +68,6 @@ getUserStateFlag = ->
   ob[getUserState()] = true
   ob
 
-Template.greeting.state = -> getUserStateFlag()
-
-Template.status.state = -> getUserStateFlag()
-
-Template.greeting.username = -> Meteor.user().username
-
 getRequirement = ( el ) ->
   log 'Get Requirement'
 
@@ -86,11 +77,6 @@ getRequirement = ( el ) ->
 
   active = $input[0].checked
   text = $textarea.val()
-
-  # log $input
-  # log active
-  # log $textarea
-  # log text
 
   ob = 
     active : active
@@ -143,14 +129,18 @@ saveUserProfile = ->
   log 'Saved User Profile'
   log Meteor.user()
 
+# Greeting Template
 
-Template.form.state = -> getUserStateFlag()
+Template.greeting.state = -> getUserStateFlag()
+Template.greeting.username = -> Meteor.user().username
 
-Template.project.user = -> 
-  log 'Project User'
-  Meteor.user()
+# Profile Template
 
-Template.project.requirements = -> 
+Template.profile.state = -> getUserStateFlag()
+
+Template.profileForm.user = -> Meteor.user()
+
+Template.profileForm.requirements = -> 
   log 'Project Requirements'
 
   defaults = [
@@ -173,16 +163,15 @@ Template.project.requirements = ->
   
   req
 
-Template.saveButton.disabled = ->
+Template.profileSaveButton.disabled = ->
   if Session.equals 'saved', true
     return state : 'disabled'
   else
     return state : ''
 
-Template.project.rendered = ->
-  log 'Project Rendered'
+# Events
 
-Template.project.events =
+Template.profileForm.events =
 
   'propertychange, keyup, input, paste input[type="text"]' : ( evt, template ) ->
     log 'Input text change'
