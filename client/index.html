@@ -4,51 +4,112 @@
 
 <body>
 
+  <!-- 
+    *** Begin Header ***
+  -->
   <header class="row offset1 span10">
     <h1>Do You <span class="red">&#xf004;</span> Art?</h1>
-    <div class="offset1 span10">{{loginButtons align="left"}}</div>
+    <h2>{{> greeting}}</h2>
   </header>
+  <!-- 
+    *** End Header ***
+  -->
 
-  <section class="row offset2 span8">
-    {{> greeting}}
-    {{> status}}
-  </section>
+  <!-- 
+    *** Begin Main Nav ***
+  -->
+  <nav class="row offset1 span10">
+    <ul class="nav nav-tabs" id="main-nav">
+      <li class="nav-item"><a href="#details">About the Show</a></li>
+      <li class="nav-item"><a href="#artists">The Other Artists</a></li>
+      <li class="nav-item"><a href="#profile">Your Project Profile</a></li>
+      <li class="nav-login">{{loginButtons align="left"}}</li>
+    </ul>
+  </nav>
+  <!-- 
+    *** End Main Nav ***
+  -->
+  <!-- 
+    *** Begin Content Section *** 
+  -->
+  <section class="row offset1 span10">
+    <div class="tab-content">
+      <div class="tab-pane active" id="details">
+        {{> details}}
+      </div>
+      <div class="tab-pane" id="profile">
+        {{> profile}}
+      </div>
+      <div class="tab-pane" id="artists">
+        {{> artists}}
+      </div>
+    </div>
 
-  <section class="row offset0 span8">
-    {{> form}}
   </section>
+  <!-- 
+    *** End Content Section *** 
+  -->
 
   <footer>
   </footer>
   
 </body>
 
+<!-- 
+  *****************
+  *** Templates ***
+  *****************
+-->
+
 <template name="greeting">
-  <h2>
-    {{#if state.unknown}}
-      <span class=\"emphasis\">&#xf062;</span> Hello Stranger
-    {{else}}
-      Hello {{username}}
-    {{/if}}
-  </h2>
-</template>
-
-<template name="status">
-  <h4>
-  {{#if state.unknown}}Sign in above, <br>and feel the love.{{/if}}
-  {{#if state.unverified}}Please check your email to verify your account.{{/if}}
-  {{#if state.verified}}Let's give your project profile some love.{{/if}}
-  </h4>
-</template>
-
-<template name="form">
-  {{#if state.verified}}
-    {{> project}}
+  Hello 
+  {{#if state.unknown}}
+    Stranger
+  {{else}}
+    {{username}}
   {{/if}}
 </template>
 
-<template name="project">
+<!-- 
+  *** Show ***
+-->
 
+<template name="details">
+  <h4>Here is some information about the event.</h4>
+</template>
+
+<!-- 
+  *** Artists ***
+-->
+
+<template name="artists">
+  <h4>Here is where you can find out about other artists.</h4>
+</template>
+
+<!-- 
+  *** Profile ***
+-->
+
+<template name="profile">
+  <h4>
+    {{#if state.unknown}}
+      Sign in above, <br>and feel the love.
+    {{/if}}
+    {{#if state.unverified}}
+      Please check your email to verify your account.
+    {{/if}}
+    {{#if state.verified}}
+      Let's give your project profile some love.
+    {{/if}}
+  </h4>
+  <div class="section">
+    {{#if state.verified}}
+      {{> profileForm}}
+    {{/if}}
+  </div>
+</template>
+
+<template name="profileForm">
   <form class="form-horizontal">
 
     <div class="control-group">
@@ -79,13 +140,13 @@
     </div>
     <div class="control-group">
       <div class="controls">
-        {{> saveButton}}
+        {{> profileSaveButton}}
       </div>
     </div>
   </form>
 
 </template>
 
-<template name="saveButton">
+<template name="profileSaveButton">
   <button id="save-project" type="submit" class="btn btn-large btn-success icon-file" {{disabled.state}}> Save</button>
 </template>

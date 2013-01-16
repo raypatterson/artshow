@@ -18,12 +18,32 @@ a:hover {
   color: #51e1ff;
 }
 
-section {
+header {
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid white;
+
+  h1 {
+    float: right;
+  }
+  h2 {
+    bottom: 0;
+    line-height: 55px;
+  }
+}
+
+.section {
   padding: 20px;
 }
 
 .red {
  color: @red-color;
+}
+
+.left {
+  text-align: left; 
+}
+.right {
+  text-align: right; 
 }
 
 .emphasis {
@@ -40,6 +60,8 @@ h1, h2, h3, h4, h5, h6, p {
 
 #login-buttons {
   font-family: @font-awesome;
+  padding: 0 15px 0 15px;
+  margin: 12px 0 0 0;
 }
 
 textarea {
