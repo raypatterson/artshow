@@ -1,12 +1,9 @@
-TL = TLog.getLogger TLog.LOGLEVEL_INFO, true
-
-log = (ob, level = 'info') ->
-  if ( typeof ob ) is 'string'
-    # TL[level] ob, 'Client'
-  else
-    # console.log '-----> Object'
-    # console.log ob
-    # console.log '<----- Object'
+log = (ob) ->
+  try
+    if not debug then return
+    console.log ob
+  catch e
+    # no console
     
 log 'Ready'
 
@@ -27,18 +24,25 @@ userStates =
 # Meteor.call 'isLocal', ( error, result ) -> isLocal = result
 
 # Debug flag
-# debug = if ( window.location.search.indexOf 'debug' ) isnt -1 then true else false
+debug = if ( window.location.search.indexOf 'debug' ) isnt -1 then true else false
 
 Meteor.startup ->
   log 'Startup'
+
   addInputEvents 'input'
   addInputEvents 'textarea'
 
+addInputEvents = ( selector ) ->
+  log 'Add Input Events'
+
+  # $( selector ).on 'propertychange keyup input paste', ( evt ) =>
+  #   log 'Project profile change'
+  #   Session.set 'saved', false
 
 getUserState = ->
   # log 'Get User State'
 
-  return userStates.VERIFIED 
+  # return userStates.VERIFIED 
 
   if Meteor.userId()
 
@@ -51,8 +55,8 @@ getUserState = ->
     if Meteor.user()
 
       # Debug for local development
-      # if debug
-      #   return userStates.VERIFIED 
+      if debug
+        return userStates.VERIFIED 
 
       if verified
         return userStates.VERIFIED
@@ -74,7 +78,8 @@ Template.status.state = -> getUserStateFlag()
 Template.greeting.username = -> Meteor.user().username
 
 getRequirement = ( el ) ->
-  # console.log 'Get Requirement'
+  log 'Get Requirement'
+
   $el = $ el
   $input = $el.find 'input'
   $textarea = $el.find 'textarea'
@@ -82,10 +87,10 @@ getRequirement = ( el ) ->
   active = $input[0].checked
   text = $textarea.val()
 
-  # console.log $input
-  # console.log active
-  # console.log $textarea
-  # console.log text
+  # log $input
+  # log active
+  # log $textarea
+  # log text
 
   ob = 
     active : active
@@ -93,29 +98,39 @@ getRequirement = ( el ) ->
   ob
 
 getRequirements = ->
-  # console.log 'Get Requirements'
+  log 'Get Requirements'
+
   arr = []
   $('.checkbox-container').each ( i, el ) ->
     arr.push( getRequirement el )
   arr
 
+flicker = ( $el, times, count = 0 ) ->
+
+  $el.delay(100)
+
+  .animate( 
+    opacity : .95
+  , 50 )
+
+  .delay(100)
+
+  .animate( 
+    opacity : .65
+  , 100, ->
+      if ++count < times
+        flicker $el, times, count
+   )
+
+
 saveUserProfile = ->
-  # log 'Save User Profile'
+  log 'Save User Profile'
 
   Session.set 'saved', true
 
   $btn = $ '#save-project'
-  $btn.delay(100)
-
-  .animate( 
-    opacity : .95
-  , 250 )
-
-  .delay(500)
-
-  .animate( 
-    opacity : .65
-  , 500 )
+  
+  flicker $btn, 2
 
   profile =
     project :
@@ -139,7 +154,7 @@ Template.project.requirements = ->
   log 'Project Requirements'
 
   defaults = [
-    question : 'Do you have any requirments to display?'
+    question : 'Do you have any requirments to display your art?'
     placeholder : 'Large space, web hosting, fire extinguishers...'
   ,
     question : 'Do you need any additional support?'
@@ -155,32 +170,26 @@ Template.project.requirements = ->
     _.each requirements, ( val, key ) ->
       r = _.extend requirements[key], defaults[key]
       req[key] = r
-
-  console.log 'req', req
   
   req
 
-addInputEvents = ( selector ) ->
-  log 'Add Input Events'
-  $( selector ).on 'propertychange keyup input paste', ( evt ) =>
-    log 'Project profile change'
-    Session.set 'saved', false
-
-Template.project.save = ->
+Template.saveButton.disabled = ->
   if Session.equals 'saved', true
-    log 'Disable save button'
-    return disabled : 'disabled'
+    return state : 'disabled'
   else
-    log 'Enable save button'
-    return disabled : ''
+    return state : ''
 
 Template.project.rendered = ->
   log 'Project Rendered'
 
 Template.project.events =
 
+  'propertychange, keyup, input, paste input[type="text"]' : ( evt, template ) ->
+    log 'Input text change'
+    Session.set 'saved', false
+
   'click .checkbox' : ( evt, template ) ->
-    console.log 'Check'
+    log 'Check'
     evt.preventDefault()
     saveUserProfile()
 

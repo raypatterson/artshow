@@ -79,9 +79,13 @@
     </div>
     <div class="control-group">
       <div class="controls">
-        <button id="save-project" type="submit" class="btn btn-large btn-success icon-file" {{save.disabled}}> Save</button>
+        {{> saveButton}}
       </div>
     </div>
   </form>
 
+</template>
+
+<template name="saveButton">
+  <button id="save-project" type="submit" class="btn btn-large btn-success icon-file" {{disabled.state}}> Save</button>
 </template>
