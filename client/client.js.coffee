@@ -39,8 +39,10 @@ Meteor.startup ->
     $(evt.currentTarget).tab 'show'
     false
 
-  $('header .title').fitText .60
-  $('header .greeting').fitText 3
+  $('header .title').fitText .5,
+    minFontSize: '160px'
+    maxFontSize: '200px'
+  $('header .greeting').fitText 1.2
 
 
 getUserState = ->

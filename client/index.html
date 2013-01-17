@@ -9,7 +9,7 @@
   -->
   <header class="row offset0 span12">
     <div class="top-bar black-bar greeting">{{> greeting}}</div>
-    <div class="mid-bar title clearfix red bold uppercase">Art Show</div>
+    <div class="mid-bar title clearfix">Art Show</div>
     <div class="bot-bar black-bar clearfix">&nbsp;</div>
   </header>
   <!-- 
@@ -64,11 +64,10 @@
 -->
 
 <template name="greeting">
-  Hello 
   {{#if state.unknown}}
-    Stranger
+    Hello Stranger, welcome to
   {{else}}
-    {{username}}
+    {{username}}, welcome back to
   {{/if}}
 </template>
 

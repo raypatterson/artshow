@@ -4,6 +4,7 @@
 // @red-color: #ff5c65;
 
 @font-awesome: FontAwesome, "Helvetica Neue", Arial, Sans-Serif;
+@font-cursive: "Great Vibes", cursive;
 @base-font-color: white;
 @red-color: #ff0080;
 @h-color: @base-font-color * .25;
@@ -46,21 +47,24 @@ header {
 
   overflow: hidden;
   margin: 0 0 0 0;
-  height: 30%;
+  height: 25%;
+  font-family: @font-cursive;
 
   div {
     overflow: hidden;
+    border: none;
   }
   
   .greeting {
-    // line-height: 100%;
-    vertical-align: bottom;
+    line-height: 1em;
     color: #FFFFFF * .99;
   }
 
   .title {
     text-align: center;
     line-height: 1em;
+    color: @red-color;
+    // font-weight: bold;
   }
 
   .black-bar {
