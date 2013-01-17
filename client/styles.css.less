@@ -1,17 +1,14 @@
-// @font-awesome: FontAwesome, "Helvetica Neue", Arial, Sans-Serif;
-// @background-image: #333344 url('/image/concrete_wall.jpg');
-// @font-color: #e8faff;
-// @red-color: #ff5c65;
-
 @font-awesome: FontAwesome, "Helvetica Neue", Arial, Sans-Serif;
 @font-cursive: "Great Vibes", cursive;
 @base-font-color: white;
-@red-color: #ff0080;
+@accent-color: #ff0080;
 @h-color: @base-font-color * .25;
 @p-color: @base-font-color * .1;
 @font-color: @base-font-color * 0;
 @background-image: white url('/image/lightpaperfibers.jpg');
 @background-image-div: @h-color url('/image/black_paper.jpg');
+
+// *** Begin Elements ***
 
 body {
   background: @background-image;
@@ -40,10 +37,30 @@ a {
 }
 
 a:hover {
-  color: @red-color;
+  color: @accent-color;
 }
 
 header {
+
+  /* Large desktop */
+  @media (min-width: 1200px) {
+
+  }
+   
+  /* Portrait tablet to landscape and desktop */
+  @media (min-width: 768px) and (max-width: 979px) {
+
+  }
+   
+  /* Landscape phone to portrait tablet */
+  @media (max-width: 767px) {
+
+  }
+   
+  /* Landscape phones and down */
+  @media (max-width: 480px) {
+
+  }
 
   overflow: hidden;
   margin: 0 0 0 0;
@@ -63,7 +80,7 @@ header {
   .title {
     text-align: center;
     line-height: 1em;
-    color: @red-color;
+    color: @accent-color;
     // font-weight: bold;
   }
 
@@ -85,10 +102,72 @@ header {
   }
 }
 
-// *** Begin Styles ***
+section {
+  padding: 0 0 0 20px;
+
+  h1 {
+    padding: 0 0 10px 0;
+  }
+
+  ul {
+    padding: 5px;
+    list-style: none;
+  }
+}
+
+// *** End Elements ***
+
+// **** Begin Sections ****
+
+#artists {
+
+  li {
+    padding: 0 0 10px 0;
+    margin: 0 0 25px 0;
+    border-bottom: 1px solid #CCC;
+
+    h4 {
+      padding: 0 0 20px 0;
+    }
+
+    .title {
+      color: @accent-color;
+      font-family: @font-cursive;
+      font-size: 40px;
+      padding: 0 0 10px 0;
+      vertical-align: bottom;
+
+      .quote {
+        position: relative;
+        top: 35px;
+        font-size: 80px;
+      }
+    }
+
+    .description {
+      padding: 10px 0 0 50px;
+    }
+  }
+}
+
+#details {
+  
+}
+
+#profile {
+
+  .profile-form {
+    padding: 20px 0 0 0;
+  }
+  
+}
+
+// **** End Sections ****
+
+// *** Begin Classes ***
 
 .red {
- color: @red-color;
+ color: @accent-color;
 }
 
 .bold {
@@ -111,25 +190,9 @@ header {
  font-size: 52px;
 }
 
-// *** End Styles ***
+// *** End Classes ***
 
-.details {
-  h5 {
-    font-size: 25px;
-  }
-  ul {
-    padding: 5px;
-    list-style: none;
-  }
-  .question {
-    font-size: 20px;
-  }
-}
-
-.section {
-  padding: 20px 0 0 10px;
-  text-align: left;
-}
+// *** Begin Forms ***
 
 #login-buttons {
   font-family: @font-awesome;
@@ -137,7 +200,6 @@ header {
   margin: 8px 0 0 0;
 }
 
-// TRBL
 input[type="checkbox"] {
   margin: 0 0 2px 0;
 }
@@ -151,6 +213,8 @@ input[type="checkbox"] {
     padding: 0 0 0 5px;
   }
 }
+
+// *** End Forms ***
 
 
 

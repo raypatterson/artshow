@@ -52,29 +52,17 @@ Accounts.emailTemplates =
 
 Meteor.startup ->
   log 'Startup'
+
+Meteor.publish "userData", ->
+  Meteor.users.find 
+    _id : this.userId,
+    fields:
+      'username' : 1
+      'profile' : 1
+
+Meteor.publish "allUserData", ->
+  Meteor.users.find {},
+    fields:
+      'username' : 1
+      'profile' : 1
     
-
-####################
-# Debug
-####################
-
-# Meteor.publish 'userData', ->
-#   log "Get user data #{this.userId}"
-#   Meteor.users.find 
-#     _id: this.userId,
-#     fields: # use fields to only publish specify fields you want to send. 
-#       username: 1
-#       emails: 1
-#       profile: 1
-
-# Accounts.sendVerificationEmail = _.wrap Accounts.sendVerificationEmail, (sendVerificationEmail) ->
-
-#   log 'Verify Email?'
-
-#   # Store the original arguments
-#   args = _.toArray(arguments).slice(1)
-#   user = args[0]
-
-#   log user
-
-#   sendVerificationEmail user

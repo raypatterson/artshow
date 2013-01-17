@@ -10,6 +10,11 @@ log 'Ready'
 Accounts.ui.config
   passwordSignupFields : 'USERNAME_AND_EMAIL'
 
+# Subscriptions
+Meteor.autosubscribe ->
+  Meteor.subscribe "userData"
+  Meteor.subscribe "allUserData"
+
 # Session variables
 Session.set 'saved', true
 
@@ -43,7 +48,6 @@ Meteor.startup ->
     minFontSize: '160px'
     maxFontSize: '200px'
   $('header .greeting').fitText 1.2
-
 
 getUserState = ->
   # log 'Get User State'
@@ -127,7 +131,7 @@ saveUserProfile = ->
 
   profile =
     project :
-      name : $('#project-name').val()
+      title : $('#project-title').val()
       description : $('#project-description').val()
       requirements : getRequirements()
 
@@ -194,6 +198,7 @@ Template.profileForm.events =
     evt.preventDefault()
     saveUserProfile()
 
+Template.artists.list = -> Meteor.users.find({}).fetch()
       
 Accounts._loginButtons.validateEmail = _.wrap Accounts._loginButtons.validateEmail, (validateEmail) ->
 
@@ -214,48 +219,3 @@ Accounts._loginButtons.validateEmail = _.wrap Accounts._loginButtons.validateEma
   else
     loginButtonsSession.errorMessage "Invalid email"
     return false
-
-
-####################
-# Debug
-####################
-
-# Accounts._loginButtons.validateEmail = function (email) {
-#     if (Accounts.ui._passwordSignupFields() === "USERNAME_AND_OPTIONAL_EMAIL" && email === '')
-#       return true;
-
-#     if (email.indexOf('@') !== -1) {
-#       return true;
-#     } else {
-#       loginButtonsSession.errorMessage("Invalid email");
-#       return false;
-#     }
-#   };
-
-# Meteor.subscribe 'userData'
-# UserData = new Meteor.Collection 'userData'
-
-# Accounts.createUser = _.wrap Accounts.createUser, (createUser) ->
-
-#   log 'Create User'
-
-#   # Store the original arguments
-#   args = _.toArray(arguments).slice(1)
-#   user = args[0]
-#   origCallback = args[1]
-
-#   newCallback = (error) ->
-#     log 'Execute Create User Callback'
-#     if error
-#       origCallback.call this, error
-#     else
-#       origCallback.call this
-
-#   log 'Check email'
-
-#   if user.email.split('@')[1] is 'akqa.com'
-#     log "Email is valid"
-#   else
-#     log "Email is invalid"
-
-#   createUser user, newCallback
