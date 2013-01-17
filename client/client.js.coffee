@@ -188,12 +188,42 @@ Template.profileForm.events =
     saveUserProfile()
 
       
+Accounts._loginButtons.validateEmail = _.wrap Accounts._loginButtons.validateEmail, (validateEmail) ->
 
+  log 'Validate Email'
+
+  loginButtonsSession = Accounts._loginButtonsSession
+
+  # Store the original arguments
+  args = _.toArray(arguments).slice(1)
+  email = args[0]
+
+  if ( email.indexOf '@' ) isnt -1
+    if email.split('@')[1] is 'akqa.com'
+      return true
+    else
+      loginButtonsSession.errorMessage "Email must be @AKQA.com"
+      return false
+  else
+    loginButtonsSession.errorMessage "Invalid email"
+    return false
 
 
 ####################
 # Debug
 ####################
+
+# Accounts._loginButtons.validateEmail = function (email) {
+#     if (Accounts.ui._passwordSignupFields() === "USERNAME_AND_OPTIONAL_EMAIL" && email === '')
+#       return true;
+
+#     if (email.indexOf('@') !== -1) {
+#       return true;
+#     } else {
+#       loginButtonsSession.errorMessage("Invalid email");
+#       return false;
+#     }
+#   };
 
 # Meteor.subscribe 'userData'
 # UserData = new Meteor.Collection 'userData'
