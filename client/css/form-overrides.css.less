@@ -1,6 +1,12 @@
 @font-awesome: FontAwesome, "Helvetica Neue", Arial, Sans-Serif;
-@background-image: #333344 url('/image/concrete_wall.jpg');
-@font-color: #e8faff;
+@base-font-color: white;
+@red-color: #ff0080;
+@h-color: @base-font-color * .25;
+@p-color: @base-font-color * .1;
+@font-color: @base-font-color * 0;
+@background-image: white url('/image/lightpaperfibers.jpg');
+@background-image-div: @h-color url('/image/black_paper.jpg');
+@border-radius: 0;
 
 #login-buttons {
   display: inline-block;
@@ -53,14 +59,16 @@
   text-align: center;
   color: #fff;
   text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.5);
-  background-color: #5f92b4;
-  background-image: -moz-linear-gradient(top, @top-gradient, @bottom-gradient);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@top-gradient), to(@bottom-gradient));
-  background-image: -webkit-linear-gradient(top, @top-gradient, @bottom-gradient);
-  background-image: -o-linear-gradient(top, @top-gradient, @bottom-gradient);
-  background-image: linear-gradient(to bottom, @top-gradient, @bottom-gradient);
+  background: @background-image-div;
+  // background-color: #5f92b4;
+  // background-image: -moz-linear-gradient(top, @top-gradient, @bottom-gradient);
+  // background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@top-gradient), to(@bottom-gradient));
+  // background-image: -webkit-linear-gradient(top, @top-gradient, @bottom-gradient);
+  // background-image: -o-linear-gradient(top, @top-gradient, @bottom-gradient);
+  // background-image: linear-gradient(to bottom, @top-gradient, @bottom-gradient);
   background-repeat: repeat-x;
-  border-radius: 4px;
+  border-radius: @border-radius;
+  // border-radius: 4px;
   border: none;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -75,12 +83,12 @@
 .accounts-dialog .login-button:active {
   box-shadow: none;
   -webkit-box-shadow: none;
-  background-color: #4f839f;
-  background-image: -moz-linear-gradient(top, @top-gradient-active, @bottom-gradient-active);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@top-gradient-active), to(@bottom-gradient-active));
-  background-image: -webkit-linear-gradient(top, @top-gradient-active, @bottom-gradient-active);
-  background-image: -o-linear-gradient(top, @top-gradient-active, @bottom-gradient-active);
-  background-image: linear-gradient(to bottom, @top-gradient-active, @bottom-gradient-active);
+  // background-color: #4f839f;
+  // background-image: -moz-linear-gradient(top, @top-gradient-active, @bottom-gradient-active);
+  // background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@top-gradient-active), to(@bottom-gradient-active));
+  // background-image: -webkit-linear-gradient(top, @top-gradient-active, @bottom-gradient-active);
+  // background-image: -o-linear-gradient(top, @top-gradient-active, @bottom-gradient-active);
+  // background-image: linear-gradient(to bottom, @top-gradient-active, @bottom-gradient-active);
   background-repeat: repeat-x;
 }
 #login-buttons .login-button.login-button-disabled,
@@ -183,20 +191,22 @@
 #login-buttons a,
 .accounts-dialog a {
   cursor: pointer;
-  text-decoration: underline;
+  // text-decoration: underline;
+  text-decoration: none !important;
 }
 #login-buttons.login-buttons-dropdown-align-right .login-close-text {
   float: right;
 }
 .accounts-dialog {
-  // border: none;
-  // border: 1px solid #777777;
-  border: 1px solid #282828;
+  border: none;
+  // border: 1px solid #CCCCCC;
+  // border: 1px solid #282828;
   z-index: 1000;
   background: @background-image;
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
+  // border-radius: 4px;
+  border-radius: @border-radius;
   padding: 8px 12px;
   margin: -8px -12px 0 -12px;
   width: 198px;
@@ -346,8 +356,9 @@ input[type=text],
 input[type=email],
 input[type=password] {
   padding: 4px;
-  border: 1px solid #999;
-  background-color: @font-color;
-  border-radius: 3px;
+  border: 1px solid #CCC;
+  background-color: white;
+  border-radius: @border-radius;
+  // border-radius: 3px;
   line-height: 1;
 }

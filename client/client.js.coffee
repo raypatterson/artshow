@@ -35,7 +35,12 @@ Meteor.startup ->
   $mainNav.find('a:first').tab 'show'
   # Event Handlers
   $mainNav.find('.nav-item a').on 'click', ( evt ) ->
+    evt.preventDefault()
     $(evt.currentTarget).tab 'show'
+    false
+
+  $('header .title').fitText .60
+  $('header .greeting').fitText 3
 
 
 getUserState = ->

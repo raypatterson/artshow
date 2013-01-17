@@ -1,5 +1,5 @@
 <head>
-  <title>Do You ♥ Art?</title>
+  <title>Art Show</title>
 </head>
 
 <body>
@@ -7,9 +7,10 @@
   <!-- 
     *** Begin Header ***
   -->
-  <header class="row offset1 span10">
-    <h1>Do You <span class="red">&#xf004;</span> Art?</h1>
-    <h2>{{> greeting}}</h2>
+  <header class="row offset0 span12">
+    <div class="top-bar black-bar greeting">{{> greeting}}</div>
+    <div class="mid-bar title clearfix red bold uppercase">Art Show</div>
+    <div class="bot-bar black-bar clearfix">&nbsp;</div>
   </header>
   <!-- 
     *** End Header ***
@@ -18,8 +19,8 @@
   <!-- 
     *** Begin Main Nav ***
   -->
-  <nav class="row offset1 span10">
-    <ul class="nav nav-tabs" id="main-nav">
+  <nav class="row offset0 span12">
+    <ul class="nav nav-pills" id="main-nav">
       <li class="nav-item"><a href="#details">About the Show</a></li>
       <li class="nav-item"><a href="#artists">The Other Artists</a></li>
       <li class="nav-item"><a href="#profile">Your Project Profile</a></li>
@@ -32,9 +33,10 @@
   <!-- 
     *** Begin Content Section *** 
   -->
-  <section class="row offset1 span10">
+  <section class="row offset0 span12 section">
+
     <div class="tab-content">
-      <div class="tab-pane active" id="details">
+      <div class="tab-pane" id="details">
         {{> details}}
       </div>
       <div class="tab-pane" id="profile">

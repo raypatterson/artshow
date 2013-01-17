@@ -1,0 +1,56 @@
+@font-awesome: FontAwesome, "Helvetica Neue", Arial, Sans-Serif;
+@base-font-color: white;
+@red-color: #ff0080;
+@green-color: #5de860;
+@h-color: @base-font-color * .25;
+@p-color: @base-font-color * .1;
+@font-color: @base-font-color * 0;
+@background-image: white url('/image/lightpaperfibers.jpg');
+@background-image-div: @h-color url('/image/black_paper.jpg');
+@border-radius: 0;
+
+.nav-pills {
+  .active {
+    a {
+      color: @red-color;
+      background: @background-image-div;
+    }
+    a:hover {
+      color: @red-color;
+      background: @background-image-div;
+    }
+  }
+}
+
+
+.nav-pills {
+  li {
+    a {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      margin-top: 0;
+      margin-bottom: 2px;
+      -webkit-border-radius: @border-radius;
+      -moz-border-radius: @border-radius;
+      border-radius: @border-radius;
+    }
+  }
+}
+
+.btn-large {
+  -webkit-border-radius: @border-radius;
+  -moz-border-radius: @border-radius;
+  border-radius: @border-radius;
+}
+
+.btn-success {
+  background-color: @green-color;
+}
+
+.btn-success:hover, 
+.btn-success:active, 
+.btn-success.active, 
+.btn-success.disabled, 
+.btn-success[disabled] {
+  background-color: @green-color * 1.1;
+}

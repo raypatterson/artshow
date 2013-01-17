@@ -1,22 +1,113 @@
+// @font-awesome: FontAwesome, "Helvetica Neue", Arial, Sans-Serif;
+// @background-image: #333344 url('/image/concrete_wall.jpg');
+// @font-color: #e8faff;
+// @red-color: #ff5c65;
+
 @font-awesome: FontAwesome, "Helvetica Neue", Arial, Sans-Serif;
-@background-image: #333344 url('/image/concrete_wall.jpg');
-@font-color: #e8faff;
-@red-color: #ff5c65;
+@base-font-color: white;
+@red-color: #ff0080;
+@h-color: @base-font-color * .25;
+@p-color: @base-font-color * .1;
+@font-color: @base-font-color * 0;
+@background-image: white url('/image/lightpaperfibers.jpg');
+@background-image-div: @h-color url('/image/black_paper.jpg');
 
 body {
   background: @background-image;
-  padding-top: 20px;
   font-family: @font-awesome;
   color: @font-color;
-}
-
-h1 {
-  font-size: 54px;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: @font-color * .75;
+  color: @h-color;
+  font-weight: bold;
 }
+
+p {
+  color: @p-color;
+}
+
+a {
+  color: @p-color;
+}
+
+a:hover {
+  color: @red-color;
+}
+
+header {
+
+  overflow: hidden;
+  margin: 0 0 0 0;
+  height: 30%;
+
+  div {
+    overflow: hidden;
+  }
+  
+  .greeting {
+    // line-height: 100%;
+    vertical-align: bottom;
+    color: #FFFFFF * .99;
+  }
+
+  .title {
+    text-align: center;
+    line-height: 1em;
+  }
+
+  .black-bar {
+    width: 100%;
+    background: @background-image-div;
+  }
+
+  .top-bar {
+    height: 25%;
+  }
+
+  .mid-bar {
+    height: 60%;
+  }
+
+  .bot-bar {
+    height: 15%;
+  }
+}
+
+// *** Begin Styles ***
+
+.red {
+ color: @red-color;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.uppercase {
+ text-transform: uppercase;
+}
+
+.left {
+  text-align: left; 
+}
+
+.right {
+  text-align: right; 
+}
+
+.emphasis {
+ font-size: 52px;
+}
+
+// *** End Styles ***
 
 .details {
   h5 {
@@ -31,60 +122,22 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-a {
-  color: #97d1ff;
-}
-
-a:hover {
-  color: #51e1ff;
-}
-
-header {
-  margin: 0 0 20px 0;
-  border-bottom: 1px solid white;
-
-  h1 {
-    float: right;
-  }
-  h2 {
-    bottom: 0;
-    line-height: 55px;
-  }
-}
-
 .section {
-  padding: 20px;
-}
-
-.red {
- color: @red-color;
-}
-
-.left {
-  text-align: left; 
-}
-.right {
-  text-align: right; 
-}
-
-.emphasis {
- font-size: 52px;
+  padding: 20px 0 0 10px;
+  text-align: left;
 }
 
 #login-buttons {
   font-family: @font-awesome;
   padding: 0 15px 0 15px;
-  margin: 12px 0 0 0;
-}
-
-textarea {
-  background-color: @font-color;
+  margin: 8px 0 0 0;
 }
 
 // TRBL
 input[type="checkbox"] {
   margin: 0 0 2px 0;
 }
+
 .checkbox-label {
   cursor: hand;
   cursor: pointer;
