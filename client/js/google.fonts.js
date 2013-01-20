@@ -1,5 +1,12 @@
 WebFontConfig = {
-  google: { families: [ 'Great+Vibes::latin' ] }
+  google: { 
+    families: [
+      // , 'Great+Vibes::latin'
+      // , 'Yanone+Kaffeesatz::latin'
+      'Open+Sans+Condensed:300,300italic,700:latin'
+      , 'Voltaire::latin' 
+    ] 
+  }
 };
 (function() {
   var wf = document.createElement('script');
