@@ -33,10 +33,18 @@
           <input type="text" id="project-title" placeholder="Black Velvet Elvis" value="{{user.profile.project.title}}">
         </div>
       </div>
+
       <div class="control-group">
         <label class="control-label" for="project-description">Description</label>
         <div class="controls">
           <textarea rows="3" id="project-description" placeholder="On a pitch black night, The King returns to Earth in a UFO made of hamburger...">{{user.profile.project.description}}</textarea>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="project-description">Link</label>
+        <div class="controls">
+          {{> profileLink}}
         </div>
       </div>
 
@@ -62,6 +70,14 @@
 
   </div>
 
+</template>
+
+<template name="profileLink">
+  <div class="input-prepend input-append">
+    <span class="add-on">http://</span>
+    <input class="link span6" type="text" id="project-link" placeholder="www.hasleft.thebuildi.ng" value="{{user.profile.project.link}}">
+    <button id="clear-link" type="button" class="btn" {{disabled.state}}>Clear</button>
+  </div>
 </template>
 
 <template name="profileSaveButton">

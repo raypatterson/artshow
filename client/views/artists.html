@@ -16,8 +16,14 @@
         {{/if}}
         <span class="quote">&rdquo;</span>
       </p>
-      {{#if profile.project.description}}
-        <p class="description">{{profile.project.description}}</p>
+      <p class="description">
+        {{profile.project.description}}
+      </p>
+
+      {{#if profile.project.link}}
+      <p class="link" >
+        <a href="http://{{profile.project.link}}" target="_blank">Check it out<i class="icon-chevron-right"></i></a>
+      </p>
       {{/if}}
     </li>
   {{/each}}
