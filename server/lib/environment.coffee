@@ -1,15 +1,3 @@
-TL = TLog.getLogger TLog.LOGLEVEL_INFO, true
-
-log = (ob, level = 'info') ->
-  TL[level] ob, 'Server'
-
-log 'Ready'
-
-# log "Settings"
-# log Meteor.settings
-# settings = Meteor.settings
-# env = settings.env
-
 Accounts.config
   sendVerificationEmail : true
   forbidClientAccountCreation : false
@@ -46,23 +34,3 @@ Accounts.emailTemplates =
       getAccountsSubject user, "reset your password"
     text : ( user, url ) -> 
       getAccountsText user, url, "reset your password.\nIf you continue to experience problems, please email #{accountsFrom}"
-
-# Meteor.methods
-#   isLocal : -> env is envs.LOCAL
-
-Meteor.startup ->
-  log 'Startup'
-
-Meteor.publish "userData", ->
-  Meteor.users.find 
-    _id : this.userId,
-    fields:
-      'username' : 1
-      'profile' : 1
-
-Meteor.publish "allUserData", ->
-  Meteor.users.find {},
-    fields:
-      'username' : 1
-      'profile' : 1
-    

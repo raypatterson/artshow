@@ -1,4 +1,4 @@
-@font-awesome: FontAwesome, "Helvetica Neue", Arial, sans-serif;
+@font-base: FontAwesome, "Helvetica Neue", Arial, sans-serif;
 // @font-display: 'Yanone Kaffeesatz', sans-serif;
 // @font-cursive: "Great Vibes", cursive;
 @font-title: 'Voltaire', "Helvetica Neue", Arial, sans-serif;
@@ -15,7 +15,7 @@
 
 body {
   background: @background-image;
-  font-family: @font-awesome;
+  font-family: @font-base;
   color: @font-color;
   padding: 0 0 0 0;
   margin: 0 0 0 0;
@@ -120,6 +120,7 @@ section {
       vertical-align: bottom;
 
       .quote {
+        font-family: @font-base;
         position: relative;
         top: 35px;
         font-size: 80px;
@@ -182,7 +183,7 @@ section {
 // *** Begin Forms ***
 
 #login-buttons {
-  font-family: @font-awesome;
+  font-family: @font-base;
   padding: 0 15px 0 15px;
   margin: 8px 0 0 0;
 }

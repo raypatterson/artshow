@@ -1,0 +1,1 @@
+debug = if ( window.location.search.indexOf 'debug' ) isnt -1 then true else false

@@ -1,0 +1,26 @@
+<template name="artists">
+
+  <h1>Artists and Projects</h1>
+  <p>Check back here as more artist add their project profiles.</p>
+
+  <ul>
+  {{#each list}}
+    <li>
+      <h4>{{username}}</h4>
+      <p class="title">
+        <span class="quote">&ldquo;</span>
+        {{#if profile.project.title}}
+          {{profile.project.title}}
+        {{else}}
+          Untitled
+        {{/if}}
+        <span class="quote">&rdquo;</span>
+      </p>
+      {{#if profile.project.description}}
+        <p class="description">{{profile.project.description}}</p>
+      {{/if}}
+    </li>
+  {{/each}}
+  </ul>
+
+</template>

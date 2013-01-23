@@ -1,0 +1,1 @@
+Template.artists.list = -> Meteor.users.find({}).fetch()
